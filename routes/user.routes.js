@@ -5,9 +5,15 @@ import {
   userPut,
   usersGet,
 } from "../controllers/user.controller.js";
-
 import { check } from "express-validator";
-import { validarCampos } from "../middlewares/validar-campos.js";
+
+import {
+  validarCampos,
+  validarJWT,
+  esAdminRole,
+  tieneRole,
+} from "../middlewares/index.js";
+
 import {
   validaEmail,
   validRole,
@@ -46,6 +52,9 @@ router.post(
 router.delete(
   "/:id",
   [
+    validarJWT,
+    // esAdminRole,
+    tieneRole("ADMIN_ROLE", "VENTAS_ROLE"),
     check("id", "No es un ID valido").isMongoId(),
     check("id").custom(existeUsuarioById),
     validarCampos,

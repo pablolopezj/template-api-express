@@ -50,7 +50,6 @@ const userPost = async (req, res = response) => {
 };
 const userDelete = async (req, res = response) => {
   const { id } = req.params;
-
   //Borrado duro
   // const usuario = await Usuario.findByIdAndDelete(id);
 
